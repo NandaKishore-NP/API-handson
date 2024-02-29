@@ -18,3 +18,17 @@ let books = [
 
 // Middleware to parse JSON bodies
 app.use(express.json());
+
+
+/** POST **/  
+app.post('/api/books', (req, res) => {
+  const { title, author,category, date, language } = req.body;
+  const book = { id: books.length + 1, title, author, category, date, language };
+  books.push(book);
+  res.status(201).json(book);
+});
+
+// Start the server
+app.listen(7987, () => {
+  console.log("Server is running on port 7987");
+})
