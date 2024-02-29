@@ -19,6 +19,20 @@ let books = [
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+
+
+/***** DELETE *****/  
+app.delete('/api/books/:id', (req, res) => {
+  const index = books.findIndex(b => b.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).send('Book not found');
+  const deletedBook = books.splice(index, 1);
+  res.json(deletedBook[0]);});
+
+// Start the server
+app.listen(7987, () => {
+  console.log("Server is running on port 7987");
+})
+=======
 /** GET  ***/
 app.get('/api/books', (req, res) => {
   res.json(books);
@@ -33,3 +47,4 @@ app.get('/api/books', (req, res) => {
 app.listen(7987, () => {
   console.log("Server is running on port 7987");
 })
+
