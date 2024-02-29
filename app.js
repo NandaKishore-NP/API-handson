@@ -20,6 +20,21 @@ let books = [
 app.use(express.json());
 
 
+
+
+
+
+
+
+/** GET  ***/
+app.get('/api/books', (req, res) => {
+  res.json(books);
+});
+ app.get('/api/books/:id', (req, res) => {
+  const book = books.find(b => b.id === parseInt(req.params.id));
+  if (!book) return res.status(404).send('Book not found');
+  res.json(book);});
+
 /** PUT **/
 app.put('/api/books', (req, res) => {
   const {id, title, author , category, date, language} = req.body;
@@ -36,14 +51,16 @@ book.language=language;
 });
 
 
+/***** DELETE *****/  
+app.delete('/api/books/:id', (req, res) => {
+  const index = books.findIndex(b => b.id === parseInt(req.params.id));
+  if (index === -1) return res.status(404).send('Book not found');
+  const deletedBook = books.splice(index, 1);
+  res.json(deletedBook[0]);});
 
-
-
-
-
-
-
+  
 // Start the server
 app.listen(7987, () => {
   console.log("Server is running on port 7987");
 })
+
