@@ -20,6 +20,7 @@ let books = [
 app.use(express.json());
 
 
+
 /***** DELETE *****/  
 app.delete('/api/books/:id', (req, res) => {
   const index = books.findIndex(b => b.id === parseInt(req.params.id));
@@ -31,3 +32,19 @@ app.delete('/api/books/:id', (req, res) => {
 app.listen(7987, () => {
   console.log("Server is running on port 7987");
 })
+=======
+/** GET  ***/
+app.get('/api/books', (req, res) => {
+  res.json(books);
+});
+ app.get('/api/books/:id', (req, res) => {
+  const book = books.find(b => b.id === parseInt(req.params.id));
+  if (!book) return res.status(404).send('Book not found');
+  res.json(book);});
+
+  
+// Start the server
+app.listen(7987, () => {
+  console.log("Server is running on port 7987");
+})
+
