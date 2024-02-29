@@ -20,12 +20,6 @@ let books = [
 app.use(express.json());
 
 
-
-
-
-
-
-
 /** GET  ***/
 app.get('/api/books', (req, res) => {
   res.json(books);
@@ -48,6 +42,14 @@ book.category= category;
 book.date=date;
 book.language=language;
   res.send(book);
+});
+
+/** POST **/  
+app.post('/api/books', (req, res) => {
+  const { title, author,category, date, language } = req.body;
+  const book = { id: books.length + 1, title, author, category, date, language };
+  books.push(book);
+  res.status(201).json(book);
 });
 
 
